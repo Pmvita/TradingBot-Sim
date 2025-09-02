@@ -892,7 +892,7 @@ def evaluation_page():
             try:
                 # Run evaluation
                 results = evaluate_agent(
-                    run_path=selected_model["model_path"],
+                    run_path=str(Path(selected_model["model_path"]).parent),  # Use run directory, not model file
                     ticker="BTC-USD",
                     start_date=test_start.strftime("%Y-%m-%d"),
                     end_date=test_end.strftime("%Y-%m-%d"),
@@ -1375,7 +1375,7 @@ def quick_eval():
         model_path = model["model_path"]
 
         evaluate_agent(
-            run_path=model_path,
+            run_path=str(Path(model_path).parent),  # Use run directory, not model file
             ticker="BTC-USD",
             start_date="2024-01-01",
             end_date=datetime.now().strftime("%Y-%m-%d"),
