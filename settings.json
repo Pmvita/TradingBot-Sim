@@ -1,0 +1,12 @@
+{
+  "default_ticker": "BTC-USD",
+  "default_interval": "1d",
+  "cache_enabled": true,
+  "default_start_cash": 10000,
+  "default_window_size": 38,
+  "auto_save": true,
+  "log_level": "INFO",
+  "max_cache_size": 1000,
+  "update_frequency": "1s",
+  "chart_theme": "plotly"
+}
