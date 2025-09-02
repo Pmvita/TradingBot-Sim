@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  trainer:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ../runs:/app/runs
+      - ../data:/app/data
+      - ../logs:/app/logs
+    environment:
+      - MPLBACKEND=Agg
+    working_dir: /app
+    command: ["tbs", "--help"]
