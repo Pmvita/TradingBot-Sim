@@ -95,7 +95,7 @@ class TradingEnv(gym.Env):
         obs_dim = feature_dim + portfolio_dim
         
         self.observation_space = spaces.Box(
-            low=-np.inf, high=np.inf, shape=(obs_dim,), dtype=float
+            low=-np.inf, high=np.inf, shape=(obs_dim,), dtype=np.float32
         )
         
         # Validate data
