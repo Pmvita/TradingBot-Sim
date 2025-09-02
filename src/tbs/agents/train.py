@@ -89,7 +89,7 @@ class Trainer:
         
         agent.learn(
             total_timesteps=self.config["train"]["total_timesteps"],
-            progress_bar=True,
+            progress_bar=False,  # Disable progress bar to avoid dependency issues
         )
         
         training_time = time.time() - start_time
