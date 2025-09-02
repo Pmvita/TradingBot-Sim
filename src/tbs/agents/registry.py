@@ -3,6 +3,7 @@
 from typing import Dict, Type, Any
 from stable_baselines3 import PPO, DQN, A2C
 from stable_baselines3.common.policies import ActorCriticPolicy
+from stable_baselines3.dqn.policies import DQNPolicy
 
 
 class AgentRegistry:
@@ -18,7 +19,7 @@ class AgentRegistry:
         
         self._default_policies: Dict[str, Type] = {
             "ppo": ActorCriticPolicy,
-            "dqn": ActorCriticPolicy,
+            "dqn": DQNPolicy,
             "a2c": ActorCriticPolicy,
         }
     

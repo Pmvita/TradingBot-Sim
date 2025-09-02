@@ -21,7 +21,4 @@ train:
   sde_sample_freq: -1
   target_kl: null
   tensorboard_log: runs/ppo/tensorboard
-  policy_kwargs:
-    net_arch:
-      pi: [64, 64]
-      vf: [64, 64]
+  # Removed policy_kwargs to avoid PyTorch compatibility issues
