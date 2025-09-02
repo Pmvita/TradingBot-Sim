@@ -49,8 +49,9 @@ gui-dash: ## Launch Dash GUI
 	$(PYTHON) gui_launcher.py dash 8050
 
 smoke: ## Run smoke test (quick training on sample data)
-	$(POETRY) run tbs fetch --ticker BTC-USD --start 2022-01-01 --end 2022-03-31 --interval 1d
-	$(POETRY) run tbs train --algo ppo --config configs/ppo.yaml --ticker BTC-USD --start 2022-01-01 --end 2022-03-31 --total-timesteps 1000
+	@echo "Running smoke test..."
+	$(POETRY) run tbs fetch --ticker BTC-USD --start 2023-01-01 --end 2024-01-01 --interval 1d
+	$(POETRY) run tbs train --algo ppo --config configs/ppo.yaml --ticker BTC-USD --start 2023-01-01 --end 2024-01-01 --total-timesteps 1000
 	@echo "Smoke test completed successfully!"
 
 docs: ## Build documentation
@@ -77,7 +78,7 @@ clean: ## Clean build artifacts and cache
 run-example: ## Run complete example workflow
 	@echo "Running complete example workflow..."
 	@echo "1. Fetching sample data..."
-	$(POETRY) run tbs fetch --ticker BTC-USD --start 2022-01-01 --end 2022-06-30 --interval 1d
+	$(POETRY) run tbs fetch --ticker BTC-USD --start 2023-01-01 --end 2024-01-01 --interval 1d
 	@echo "2. Training PPO agent..."
 	$(POETRY) run tbs train --algo ppo --config configs/ppo.yaml --ticker BTC-USD --total-timesteps 10000
 	@echo "3. Evaluating against baselines..."

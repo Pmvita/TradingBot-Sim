@@ -4,8 +4,8 @@ data:
   source: yfinance  # or csv
   ticker: BTC-USD
   interval: 1d
-  start: 2022-01-01
-  end: 2022-12-31
+  start: 2023-01-01  # More recent start date
+  end: null  # Will be set to current date dynamically
   cache: true
   cache_dir: data/cache
 

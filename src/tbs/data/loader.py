@@ -5,6 +5,7 @@ import pandas as pd
 import yfinance as yf
 from pathlib import Path
 from typing import Optional, Union
+from datetime import datetime
 import structlog
 
 logger = structlog.get_logger(__name__)
@@ -39,13 +40,18 @@ class DataLoader:
             ticker: Ticker symbol for yfinance
             csv_path: Path to CSV file
             start: Start date (YYYY-MM-DD)
-            end: End date (YYYY-MM-DD)
+            end: End date (YYYY-MM-DD), defaults to today if None
             interval: Data interval (1d, 1h, etc.)
             cache: Whether to use caching
             
         Returns:
             DataFrame with OHLCV data
         """
+        # Set end date to today if not specified
+        if end is None:
+            end = datetime.now().strftime("%Y-%m-%d")
+            logger.info("End date not specified, using today", end_date=end)
+        
         if source == "yfinance":
             return self._load_yfinance_data(ticker, start, end, interval, cache)
         elif source == "csv":

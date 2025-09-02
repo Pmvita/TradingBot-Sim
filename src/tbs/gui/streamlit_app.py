@@ -436,14 +436,14 @@ def data_management_page():
             st.markdown("#### 📅 Date Range")
             start_date = st.date_input(
                 "Start Date",
-                value=datetime(2022, 1, 1),
+                value=datetime(2023, 1, 1),
                 help="Select start date for data"
             )
             
             end_date = st.date_input(
                 "End Date", 
-                value=datetime(2022, 12, 31),
-                help="Select end date for data"
+                value=datetime.now().date(),
+                help="Select end date for data (defaults to today)"
             )
             
             cache_data = st.checkbox(
@@ -688,8 +688,12 @@ def training_page():
             # Training thread
             def train_thread():
                 try:
-                    # Create custom config
-                    config = OmegaConf.load(config_file)
+                    # Create custom config with proper merging
+                    base_config = OmegaConf.load("configs/default.yaml")
+                    algo_config = OmegaConf.load(config_file)
+                    config = OmegaConf.merge(base_config, algo_config)
+                    
+                    # Update config values
                     config.train.total_timesteps = total_timesteps
                     config.train.seed = seed
                     config.env.window_size = window_size
@@ -796,14 +800,14 @@ def evaluation_page():
         
         test_start = st.date_input(
             "Test Start Date",
-            value=datetime(2023, 1, 1),
+            value=datetime(2024, 1, 1),
             help="Start date for evaluation period"
         )
         
         test_end = st.date_input(
             "Test End Date",
-            value=datetime(2023, 12, 31),
-            help="End date for evaluation period"
+            value=datetime.now().date(),
+            help="End date for evaluation period (defaults to today)"
         )
     
     with col2:
@@ -1201,8 +1205,8 @@ def fetch_sample_data():
         data = data_loader.load_data(
             source="yfinance",
             ticker="BTC-USD",
-            start="2022-01-01",
-            end="2022-12-31",
+            start="2023-01-01",
+            end=datetime.now().strftime("%Y-%m-%d"),
             interval="1d",
             cache=True
         )
@@ -1254,8 +1258,8 @@ def quick_eval():
         results = evaluate_agent(
             run_path=model['model_path'],
             ticker="BTC-USD",
-            start_date="2023-01-01",
-            end_date="2023-12-31",
+            start_date="2024-01-01",
+            end_date=datetime.now().strftime("%Y-%m-%d"),
             interval="1d",
             baseline_strategies=["buy_and_hold"]
         )

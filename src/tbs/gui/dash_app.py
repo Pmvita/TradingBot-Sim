@@ -548,13 +548,13 @@ def create_data_management_layout():
                                     dbc.Label("Start Date", className="fw-bold"),
                                     dcc.DatePickerSingle(
                                         id="start-date",
-                                        date=datetime(2022, 1, 1).date(),
+                                        date=datetime(2023, 1, 1).date(),
                                         className="mb-3"
                                     ),
                                     dbc.Label("End Date", className="fw-bold"),
                                     dcc.DatePickerSingle(
                                         id="end-date",
-                                        date=datetime(2022, 12, 31).date(),
+                                        date=datetime.now().date(),
                                         className="mb-3"
                                     ),
                                     dbc.Checkbox(
@@ -1141,8 +1141,12 @@ def start_training(n_clicks, algo, total_timesteps, seed, window_size, fee_bps, 
         return dbc.Alert("Please fetch data first", color="warning"), []
     
     try:
-        # Create config
-        config = OmegaConf.load(f"configs/{algo}.yaml")
+        # Create config with proper merging
+        base_config = OmegaConf.load("configs/default.yaml")
+        algo_config = OmegaConf.load(f"configs/{algo}.yaml")
+        config = OmegaConf.merge(base_config, algo_config)
+        
+        # Update config values
         config.train.total_timesteps = total_timesteps
         config.train.seed = seed
         config.env.window_size = window_size
